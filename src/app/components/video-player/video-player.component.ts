@@ -247,6 +247,25 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   onStreamChange(index: number): void {
     this.currentStreamIndex.set(index);
+    
+    // Reset playback state
+    const video = this.videoRef()?.nativeElement;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    
+    // Reset UI state
+    this.isPlaying.set(false);
+    this.currentTime.set(0);
+    this.duration.set(0);
+    this.bufferedPercent.set(0);
+    this.errorMessage.set(null);
+    this.availableTextTracks.set([]);
+    this.selectedTextTrack.set(null);
+    this.availableAudioTracks.set([]);
+    this.selectedAudioTrack.set(null);
+    
     this.loadStream(this.streams[index]);
   }
 
