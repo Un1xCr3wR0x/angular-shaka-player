@@ -85,12 +85,23 @@ export class StreamService {
       description: 'Bitmovin HLS demo'
     },
     // === DRM Protected Streams ===
-    // Note: Widevine DRM requires browser support and may not work in all environments
+    // ClearKey DRM - works in all modern browsers without external license servers
     {
-      name: '🔒 Angel One - ClearKey (DASH)',
+      name: '🔒 Axinom ClearKey (DASH)',
+      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest_1080p_ClearKey.mpd',
+      type: 'dash',
+      description: 'ClearKey DRM - Axinom test vector',
+      drm: {
+        clearkey: {
+          'nrQFDeRLSAKTLifXUIPiZg': 'FmY0xnWCPCNaSpRG-tUuTQ'
+        }
+      }
+    },
+    {
+      name: '🔒 Shaka ClearKey (DASH)',
       url: 'https://storage.googleapis.com/shaka-demo-assets/angel-one-clearkey/dash.mpd',
       type: 'dash',
-      description: 'ClearKey DRM - works in all browsers',
+      description: 'ClearKey DRM - Shaka official test',
       drm: {
         clearkey: {
           '_u3wDe7erb7v8Lqt8A3QDQ': 'ABEiM0RVZneImaq7zN3u_w'
@@ -98,29 +109,17 @@ export class StreamService {
       }
     },
     {
-      name: '🔒 Axinom Multi-DRM (Widevine)',
-      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest.mpd',
+      name: '🔒 Axinom Multi-Key ClearKey',
+      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-MultiKey/Manifest_1080p_ClearKey.mpd',
       type: 'dash',
-      description: 'Axinom Widevine/PlayReady DRM test',
-      drm: {
-        widevine: 'https://drm-widevine-licensing.axtest.net/AcquireLicense',
-        widevineHeaders: {
-          'X-AxDRM-Message': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjMzNjRlYjUtNTFmNi00YWUzLThjOTgtMzNjZWQ1ZTMxYzc4IiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwiZW5jcnlwdGVkX2tleSI6ImxLM09qSExZVzI0Y3Iya3RSNzRmbnc9PSJ9XX19.4lWwW46k-oWcah8oN18LPj5OLS5ZU-_AQv7fe0JhNjA'
-        },
-        playready: 'https://drm-playready-licensing.axtest.net/AcquireLicense',
-        playreadyHeaders: {
-          'X-AxDRM-Message': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjMzNjRlYjUtNTFmNi00YWUzLThjOTgtMzNjZWQ1ZTMxYzc4IiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwiZW5jcnlwdGVkX2tleSI6ImxLM09qSExZVzI0Y3Iya3RSNzRmbnc9PSJ9XX19.4lWwW46k-oWcah8oN18LPj5OLS5ZU-_AQv7fe0JhNjA'
-        }
-      }
-    },
-    {
-      name: '🔒 Axinom ClearKey (Raw Keys)',
-      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest_1080p_ClearKey.mpd',
-      type: 'dash',
-      description: 'Axinom with raw ClearKey',
+      description: 'ClearKey with multiple keys',
       drm: {
         clearkey: {
-          'nrQFDeRLSAKTLifXUIPiZg': 'FmY0xnWCPCNaSpRG-tUuTQ'
+          'gDmb9YohQBSAU-J-dI6YwA': '3aHppzZ2g3Y3wK1uNnUXmg',
+          'kJU-CWyySaOiYHpf7-rUmQ': 'zsmKW7Mq9Unz5R7oUGeF8w',
+          'Dk2pK9DoSmaMP8Jal-tlMg': 'UmYYfGb7znuoFAQM79ayHw',
+          'WF8jPzByRvGfpG3CLGagFA': 'jayKpC3tmPq4YKXkapa8FA',
+          'QiK9eLxFQb-2Pm-BTcOR3w': 'GAMi9v92b9ca5yBwaptN-Q'
         }
       }
     }
