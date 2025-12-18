@@ -197,7 +197,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.player.configure({
       drm: {
         servers: {},
-        clearKeys: {}
+        clearKeys: {},
+        advanced: {}
       }
     });
 
@@ -208,21 +209,33 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     // Build DRM servers object
     const servers: Record<string, string> = {};
+    const advanced: Record<string, object> = {};
     
     // Configure Widevine
     if (stream.drm.widevine) {
       servers['com.widevine.alpha'] = stream.drm.widevine;
+      if (stream.drm.widevineHeaders) {
+        advanced['com.widevine.alpha'] = {
+          headers: stream.drm.widevineHeaders
+        };
+      }
     }
 
     // Configure PlayReady
     if (stream.drm.playready) {
       servers['com.microsoft.playready'] = stream.drm.playready;
+      if (stream.drm.playreadyHeaders) {
+        advanced['com.microsoft.playready'] = {
+          headers: stream.drm.playreadyHeaders
+        };
+      }
     }
 
     const drmConfig = {
       drm: {
         servers: servers,
-        clearKeys: stream.drm.clearkey || {}
+        clearKeys: stream.drm.clearkey || {},
+        advanced: advanced
       }
     };
     

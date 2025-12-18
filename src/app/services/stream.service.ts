@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 export interface DrmConfig {
   widevine?: string;
+  widevineHeaders?: Record<string, string>;
   playready?: string;
+  playreadyHeaders?: Record<string, string>;
   clearkey?: {
     [keyId: string]: string;
   };
@@ -97,9 +99,30 @@ export class StreamService {
     },
     {
       name: '🔒 Axinom Multi-DRM (Widevine)',
-      url: 'https://media.axprod.net/TestVectors/v7-Clear/Manifest.mpd',
+      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest.mpd',
       type: 'dash',
-      description: 'Axinom clear test (no DRM needed)'
+      description: 'Axinom Widevine/PlayReady DRM test',
+      drm: {
+        widevine: 'https://drm-widevine-licensing.axtest.net/AcquireLicense',
+        widevineHeaders: {
+          'X-AxDRM-Message': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjMzNjRlYjUtNTFmNi00YWUzLThjOTgtMzNjZWQ1ZTMxYzc4IiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwiZW5jcnlwdGVkX2tleSI6ImxLM09qSExZVzI0Y3Iya3RSNzRmbnc9PSJ9XX19.4lWwW46k-oWcah8oN18LPj5OLS5ZU-_AQv7fe0JhNjA'
+        },
+        playready: 'https://drm-playready-licensing.axtest.net/AcquireLicense',
+        playreadyHeaders: {
+          'X-AxDRM-Message': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjMzNjRlYjUtNTFmNi00YWUzLThjOTgtMzNjZWQ1ZTMxYzc4IiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwiZW5jcnlwdGVkX2tleSI6ImxLM09qSExZVzI0Y3Iya3RSNzRmbnc9PSJ9XX19.4lWwW46k-oWcah8oN18LPj5OLS5ZU-_AQv7fe0JhNjA'
+        }
+      }
+    },
+    {
+      name: '🔒 Axinom ClearKey (Raw Keys)',
+      url: 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest_1080p_ClearKey.mpd',
+      type: 'dash',
+      description: 'Axinom with raw ClearKey',
+      drm: {
+        clearkey: {
+          'nrQFDeRLSAKTLifXUIPiZg': 'FmY0xnWCPCNaSpRG-tUuTQ'
+        }
+      }
     }
   ];
 }
